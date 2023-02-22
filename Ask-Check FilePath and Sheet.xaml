@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Check_for_Browser_Init_Page" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1268,953.6" sap2010:WorkflowViewState.IdRef="Check_for_Browser_Init_Page_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Ask_Check_FilePath_and_Sheet" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1268,1323.2" sap2010:WorkflowViewState.IdRef="Ask_Check_FilePath_and_Sheet_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="50">
+    <scg:List x:TypeArguments="x:String" Capacity="26">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -24,8 +24,8 @@
       <x:String>System.Windows.Markup</x:String>
       <x:String>GlobalVariablesNamespace</x:String>
       <x:String>GlobalConstantsNamespace</x:String>
-      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
       <x:String>System.Reflection</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
@@ -55,53 +55,51 @@
       <AssemblyReference>System.ComponentModel</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>System.Private.Uri</AssemblyReference>
-      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
       <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
       <AssemblyReference>System.ObjectModel</AssemblyReference>
       <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Check_for_Browser_Init_Page" sap:VirtualizedContainerService.HintSize="478.4,888.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Ask_Check_FilePath_and_Sheet" sap:VirtualizedContainerService.HintSize="478.4,1258.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:Boolean" Name="boolNumEntradaInputField" />
+      <Variable x:TypeArguments="x:String" Name="strSheetName" />
+      <Variable x:TypeArguments="x:String" Name="strFilePath" />
+      <Variable x:TypeArguments="x:Boolean" Name="boolPathExist" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message Init Check Home Web Page" sap:VirtualizedContainerService.HintSize="435.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Revisando si se encuntra en la pantalla de inicio...&quot;]" />
-    <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" DisplayName="Do While NumEntradaInputfield Not found" sap:VirtualizedContainerService.HintSize="435.2,533.6" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+    <ui:LogMessage DisplayName="Log Message Init Check File Path" sap:VirtualizedContainerService.HintSize="435.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Iniciando el check de ruta y nombre del archivo...&quot;]" />
+    <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" DisplayName="Do While Path does not exist" sap:VirtualizedContainerService.HintSize="435.2,754.4" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
       <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="400,366.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="400,587.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:UiElementExists sap2010:Annotation.AnnotationText="The selector of this activity is bind to a chrome window. If chrome is not used this activity will crash." DisplayName="Element numeroEntradaInput Exist" Exists="[boolNumEntradaInputField]" sap:VirtualizedContainerService.HintSize="356.8,151.2" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
-            <ui:UiElementExists.Target>
-              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="03b3fec1-c5b2-4a6a-b5a9-b9970aa15e1b" InformativeScreenshot="230d81d00864ca4a7cacb2d60598ab65" Selector="&lt;html app='chrome.exe' title='Servicios Telemáticos' /&gt;&lt;webctrl id='numeroEntrada' tag='INPUT' /&gt;" TimeoutMS="3000">
-                <ui:Target.WaitForReady>
-                  <InArgument x:TypeArguments="ui:WaitForReady" />
-                </ui:Target.WaitForReady>
-              </ui:Target>
-            </ui:UiElementExists.Target>
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-          </ui:UiElementExists>
-          <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Busqueda de entradas NotFound" sap:VirtualizedContainerService.HintSize="356.8,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;No sé en cuentra en la pantalla de Búsqueda de Entradas.&#xD;&#xA;Favor de Ingresar a la página del Registro Público y colocarse sobre la pantalla de Búsqueda de Entradas&#xD;&#xA;https://www.dummie/BusquedaEntradas&quot;]" />
+          <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog Get FilePath" sap:VirtualizedContainerService.HintSize="356.8,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Ingrese la ruta del archivo a trabajarse:" Title="Ruta del archivo">
+            <ui:InputDialog.Result>
+              <OutArgument x:TypeArguments="x:String">[strFilePath]</OutArgument>
+            </ui:InputDialog.Result>
+          </ui:InputDialog>
+          <ui:PathExists Resource="{x:Null}" DisplayName="strFilePath Exists " Exists="[boolPathExist]" sap:VirtualizedContainerService.HintSize="356.8,90.4" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[strFilePath]" PathType="File" />
+          <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box Path not exist" sap:VirtualizedContainerService.HintSize="356.8,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;La ruta proporcionada no existe.&quot;]" />
         </Sequence>
       </ui:InterruptibleDoWhile.Body>
       <ui:InterruptibleDoWhile.Condition>
-        <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="boolNumEntradaInputField = False" />
+        <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="Not boolPathExist" />
       </ui:InterruptibleDoWhile.Condition>
     </ui:InterruptibleDoWhile>
-    <ui:LogMessage DisplayName="Log Message End Check Web Home Page" sap:VirtualizedContainerService.HintSize="435.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Se encuentra en la pagina de Búsqueda de Entradas. Continuando el Proceso...&quot;]" />
+    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog Get FilePath" sap:VirtualizedContainerService.HintSize="435.2,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="False" Label="Ingrese la hoja del archivo en la que se encuentra la data:" Title="Hoja del archivo">
+      <ui:InputDialog.Result>
+        <OutArgument x:TypeArguments="x:String">[strSheetName]</OutArgument>
+      </ui:InputDialog.Result>
+    </ui:InputDialog>
   </Sequence>
 </Activity>
