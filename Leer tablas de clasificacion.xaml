@@ -138,14 +138,14 @@
                   </ActivityAction.Argument>
                   <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476.8,271.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
                     <Sequence.Variables>
-                      <Variable x:TypeArguments="sd:DataTable" Name="dtOfcurrentItem" />
+                      <Variable x:TypeArguments="sd:DataTable" Name="dt_currentItem" />
                     </Sequence.Variables>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:ExcelReadRange AddHeaders="True" DataTable="[dtOfcurrentItem]" DisplayName="Get currentItem DataTable" sap:VirtualizedContainerService.HintSize="433.6,60" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="[currentItem]">
+                    <ui:ExcelReadRange AddHeaders="True" DataTable="[dt_currentItem]" DisplayName="Get currentItem DataTable" sap:VirtualizedContainerService.HintSize="433.6,60" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="[currentItem]">
                       <ui:ExcelReadRange.Range>
                         <InArgument x:TypeArguments="x:String">
                           <Literal x:TypeArguments="x:String" Value="" />
@@ -157,7 +157,7 @@
                         <OutArgument x:TypeArguments="sd:DataTable">[out_dictClasification(currentItem)]</OutArgument>
                       </Assign.To>
                       <Assign.Value>
-                        <InArgument x:TypeArguments="sd:DataTable">[dtOfcurrentItem]</InArgument>
+                        <InArgument x:TypeArguments="sd:DataTable">[dt_currentItem]</InArgument>
                       </Assign.Value>
                     </Assign>
                   </Sequence>
