@@ -1,11 +1,12 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="Ask_Check_FilePath_and_Sheet" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="out_strFilePath" Type="OutArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Ruta del archivo a trabajar" Name="out_strFilePath" Type="OutArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Nombre de la hoja del archivo de trabajo" Name="out_strSheetName" Type="OutArgument(x:String)" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1268,2069.6</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1228,2584</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Ask_Check_FilePath_and_Sheet_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="29">
@@ -79,11 +80,10 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Ask_Check_FilePath_and_Sheet" sap:VirtualizedContainerService.HintSize="555.2,2004.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Ask_Check_FilePath_and_Sheet" sap:VirtualizedContainerService.HintSize="555.2,2519.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="strSheetName" />
-      <Variable x:TypeArguments="x:Boolean" Name="boolPathExist" />
-      <Variable x:TypeArguments="scg:List(x:String)" Name="LstrSheetNames" />
+      <Variable x:TypeArguments="x:Boolean" sap2010:Annotation.AnnotationText="Boolean para denotar que la ruta del archivo indicado existe" Name="boolPathExist" />
+      <Variable x:TypeArguments="scg:List(x:String)" sap2010:Annotation.AnnotationText="Lista de las hojas del archivo" Name="LstrSheetNames" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -91,39 +91,39 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message Init Check File Path" sap:VirtualizedContainerService.HintSize="512,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Iniciando el check de ruta y nombre del archivo...&quot;]" />
-    <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" DisplayName="Do While Path does not exist" sap:VirtualizedContainerService.HintSize="512,721.6" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+    <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" Condition="[boolPathExist = False]" DisplayName="Do While Path does not exist" sap:VirtualizedContainerService.HintSize="512,995.2" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
       <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="400,554.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Ask for File Path" sap:VirtualizedContainerService.HintSize="453.6,828" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Get FilePath from user" sap:VirtualizedContainerService.HintSize="356.8,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Ingrese la ruta del archivo a trabajarse:" Title="Ruta del archivo">
+          <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Get FilePath from user" sap:VirtualizedContainerService.HintSize="410.4,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Ingrese la ruta del archivo a trabajarse:" Title="Ruta del archivo">
             <ui:InputDialog.Result>
               <OutArgument x:TypeArguments="x:String">[out_strFilePath]</OutArgument>
             </ui:InputDialog.Result>
           </ui:InputDialog>
-          <ui:PathExists Resource="{x:Null}" DisplayName="strFilePath Exists " Exists="[boolPathExist]" sap:VirtualizedContainerService.HintSize="356.8,90.4" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[out_strFilePath]" PathType="File" />
-          <If Condition="[boolPathExist = False]" DisplayName="If bolPathExist is False then show msg" sap:VirtualizedContainerService.HintSize="356.8,52.8" sap2010:WorkflowViewState.IdRef="If_1">
+          <ui:PathExists Resource="{x:Null}" DisplayName="strFilePath Exists " Exists="[boolPathExist]" sap:VirtualizedContainerService.HintSize="410.4,90.4" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[out_strFilePath]" PathType="File" />
+          <If Condition="[boolPathExist = False]" DisplayName="If bolPathExist is False then show msg" sap:VirtualizedContainerService.HintSize="410.4,326.4" sap2010:WorkflowViewState.IdRef="If_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <If.Then>
-              <Sequence sap:VirtualizedContainerService.HintSize="400,175.2" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence sap:VirtualizedContainerService.HintSize="376.8,175.2" sap2010:WorkflowViewState.IdRef="Sequence_5">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box Path not exist" sap:VirtualizedContainerService.HintSize="356.8,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;La ruta proporcionada no existe. Vuelva a proporcionar la ruta.&quot;]" />
+                <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box Path not exist" sap:VirtualizedContainerService.HintSize="333.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;La ruta proporcionada no existe. Vuelva a proporcionar la ruta.&quot;]" />
               </Sequence>
             </If.Then>
             <If.Else>
-              <Sequence sap:VirtualizedContainerService.HintSize="400,82.4" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <Sequence sap:VirtualizedContainerService.HintSize="300,82.4" sap2010:WorkflowViewState.IdRef="Sequence_6">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -134,13 +134,10 @@
           </If>
         </Sequence>
       </ui:InterruptibleDoWhile.Body>
-      <ui:InterruptibleDoWhile.Condition>
-        <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="boolPathExist = False" />
-      </ui:InterruptibleDoWhile.Condition>
     </ui:InterruptibleDoWhile>
-    <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" DisplayName="Do While Sheet dont exist" sap:VirtualizedContainerService.HintSize="512,888" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_2">
+    <ui:InterruptibleDoWhile CurrentIndex="{x:Null}" Condition="[LstrSheetNames.Contains(out_strSheetName) = False]" DisplayName="Do While Sheet dont exist" sap:VirtualizedContainerService.HintSize="512,1128.8" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_2">
       <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476.8,720.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence DisplayName="Ask for Sheet Name" sap:VirtualizedContainerService.HintSize="476.8,961.6" sap2010:WorkflowViewState.IdRef="Sequence_3">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -148,7 +145,7 @@
           </sap:WorkflowViewStateService.ViewState>
           <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog Get SheetName" sap:VirtualizedContainerService.HintSize="433.6,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="False" Label="Ingrese la hoja del archivo en la que se encuentra la data:" Title="Hoja del archivo">
             <ui:InputDialog.Result>
-              <OutArgument x:TypeArguments="x:String">[strSheetName]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[out_strSheetName]</OutArgument>
             </ui:InputDialog.Result>
           </ui:InputDialog>
           <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel App Scope for File Path" sap:VirtualizedContainerService.HintSize="433.6,224" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="[out_strFilePath]">
@@ -157,23 +154,53 @@
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="400,114.4" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="377.6,114.4" sap2010:WorkflowViewState.IdRef="Sequence_4">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:ExcelGetWorkbookSheets DisplayName="Get sheets of File Path" sap:VirtualizedContainerService.HintSize="356.8,24.8" sap2010:WorkflowViewState.IdRef="ExcelGetWorkbookSheets_1" Sheets="[LstrSheetNames]" />
+                  <ui:ExcelGetWorkbookSheets DisplayName="Get sheets of File Path" sap:VirtualizedContainerService.HintSize="334.4,24.8" sap2010:WorkflowViewState.IdRef="ExcelGetWorkbookSheets_1" Sheets="[LstrSheetNames]" />
                 </Sequence>
               </ActivityAction>
             </ui:ExcelApplicationScope.Body>
           </ui:ExcelApplicationScope>
-          <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box Hoja dont exist" sap:VirtualizedContainerService.HintSize="433.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;La hoja indicada no existe en el archivo. Revisar y escribir de nuevo el nombre correcto.&quot;]" />
+          <If Condition="[LstrSheetNames.Contains(out_strSheetName) = False]" DisplayName="If SheetName not in List then show msg" sap:VirtualizedContainerService.HintSize="433.6,326.4" sap2010:WorkflowViewState.IdRef="If_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="376.8,175.2" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box Hoja dont exist" sap:VirtualizedContainerService.HintSize="333.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;La hoja indicada no existe en el archivo. Revisar y escribir de nuevo el nombre correcto.&quot;]">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:MessageBox>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence sap:VirtualizedContainerService.HintSize="300,82.4" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </Sequence>
+            </If.Else>
+          </If>
         </Sequence>
       </ui:InterruptibleDoWhile.Body>
-      <ui:InterruptibleDoWhile.Condition>
-        <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="LstrSheetNames.Contains(strSheetName) = False" />
-      </ui:InterruptibleDoWhile.Condition>
     </ui:InterruptibleDoWhile>
     <ui:LogMessage DisplayName="Log Message End Check File Path" sap:VirtualizedContainerService.HintSize="512,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Fin de el check de ruta y nombre del archivo...&quot;]" />
   </Sequence>

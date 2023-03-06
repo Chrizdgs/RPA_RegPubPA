@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1268,910.4" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1228,1403.2" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="27">
+    <scg:List x:TypeArguments="x:String" Capacity="31">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -28,10 +28,14 @@
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Xml.Serialization</x:String>
       <x:String>System.Reflection</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="43">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="48">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -74,38 +78,71 @@
       <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
       <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
       <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="400,845.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="540,1338.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" Name="dictClasification" />
-      <Variable x:TypeArguments="x:String" Name="strProcessName" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" sap2010:Annotation.AnnotationText="Diccionario que contiene las tabalas de clasificación para los procesos (Casos y Codigos de Ubicación)" Name="dictClasification" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Nombre del proceso a ejecutarse" Name="strProcessName" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Ruta del archivo a trabajar" Name="strFilePath" />
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Nombre de la hoja del archivo de trabajo" Name="strSheetName" />
+      <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Data a procesarse" Name="dt_TransactionData" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InputDialog Options="{x:Null}" DisplayName="Input Dialog Inicio de Proceso" sap:VirtualizedContainerService.HintSize="356.8,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Marque el proceso a iniciarse:" OptionsString="Stasus Check;Código de Ubicación Fill" Title="Iniciando Proceso de Registro Público">
+    <ui:InputDialog Options="{x:Null}" DisplayName="Input Dialog Inicio de Proceso" sap:VirtualizedContainerService.HintSize="496.8,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Marque el proceso a iniciarse:" OptionsString="Stasus Check;Código de Ubicación Fill" Title="Iniciando Proceso de Registro Público">
       <ui:InputDialog.Result>
         <OutArgument x:TypeArguments="x:String">[strProcessName]</OutArgument>
       </ui:InputDialog.Result>
     </ui:InputDialog>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Leer tablas de clasificacion.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="356.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Leer tablas de clasificacion.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Leer tablas de clasificacion.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="496.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Leer tablas de clasificacion.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="x:String" x:Key="in_strClasificationsPath">Data\Input\Clasificaciones.xlsx</InArgument>
         <OutArgument x:TypeArguments="scg:Dictionary(x:String, sd:DataTable)" x:Key="out_dictClasification">[dictClasification]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Ask-Check FilePath and Sheet.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="356.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Ask-Check FilePath and Sheet.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Ask-Check FilePath and Sheet.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="496.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Ask-Check FilePath and Sheet.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_strFilePath">
+          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="strFilePath" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_strSheetName">
+          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="strSheetName" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:ReadRange AddHeaders="True" DataTable="[dt_TransactionData]" DisplayName="Read Range Archivo de trabajo" sap:VirtualizedContainerService.HintSize="496.8,88" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="[strSheetName]" WorkbookPath="[strFilePath]">
+      <ui:ReadRange.Range>
+        <InArgument x:TypeArguments="x:String">
+          <Literal x:TypeArguments="x:String" Value="" />
+        </InArgument>
+      </ui:ReadRange.Range>
+    </ui:ReadRange>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Check for Browser Init Page.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="496.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Check for Browser Init Page.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <scg:Dictionary x:TypeArguments="x:String, Argument" />
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Check for Browser Init Page.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="356.8,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Check for Browser Init Page.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <scg:Dictionary x:TypeArguments="x:String, Argument" />
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
+    <Switch x:TypeArguments="x:String" DisplayName="Switch Status or Codigo" Expression="[strProcessName]" sap:VirtualizedContainerService.HintSize="496.8,324.8" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" x:Key="Stasus Check" DisplayName="Status Check.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Status Check.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtTransactionData">
+            <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_TransactionData" />
+          </InArgument>
+          <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtClasifCasos">
+            <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dictClasification(&quot;Casos&quot;)" />
+          </InArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <x:Null x:Key="Código de Ubicación Fill" />
+    </Switch>
   </Sequence>
 </Activity>
